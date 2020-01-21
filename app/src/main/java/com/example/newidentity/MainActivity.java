@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -49,10 +50,6 @@ public class MainActivity extends AppCompatActivity {
         wireWidgets();
         setListeners();
 
-        Uri avatarUri = Uri.parse("https://avatars.dicebear.com/v2/" + "male" + "/" + Math.random() + ".svg");
-
-        GlideToVectorYou.justLoadImage(MainActivity.this, avatarUri, imageViewPortrait);
-
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.gender_array, android.R.layout.simple_spinner_item);
@@ -67,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                gender = adapterView.getItemAtPosition(i).toString();
+                gender = adapterView.getItemAtPosition(i).toString().toLowerCase();
             }
 
             @Override
@@ -79,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         buttonGenerate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(IdentityService.BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
@@ -93,18 +91,17 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Identity> call, Response<Identity> response) {
                         Identity foundIdentity = response.body();
-                        textViewLastName.setText(foundIdentity.getSurname());
-                        textViewFirstName.setText(foundIdentity.getName());
-                        textViewGender.setText(foundIdentity.getGender());
-                        textViewAge.setText(foundIdentity.getAge());
-                        textViewPhone.setText(foundIdentity.getPhone());
-                        textViewRegion.setText(foundIdentity.getRegion());
-                        textViewBirthday.setText(foundIdentity.getMdy());
-                        textViewEmail.setText(foundIdentity.getEmail());
-                        textViewPassword.setText(foundIdentity.getPassword());
-                        textViewCreditCard.setText(foundIdentity.getNumber());
-                        textViewExpiration.setText(foundIdentity.getExpiration());
-                        textViewPin.setText(foundIdentity.getPin());
+                        textViewLastName.setText("Last Name: " + foundIdentity.getSurname());
+                        textViewFirstName.setText("First Name: " + foundIdentity.getName());
+                        textViewAge.setText("Age: " + foundIdentity.getAge());
+                        textViewPhone.setText("Phone: " + foundIdentity.getPhone());
+                        textViewRegion.setText("Region: " + foundIdentity.getRegion());
+                        textViewBirthday.setText("DoB: " + foundIdentity.getMdy());
+                        textViewEmail.setText("Email: " + foundIdentity.getEmail());
+                        textViewPassword.setText("Password: " + foundIdentity.getPassword());
+                        textViewCreditCard.setText("Credit Card: " + foundIdentity.getNumber());
+                        textViewExpiration.setText("Expiration: " + foundIdentity.getExpiration());
+                        textViewPin.setText("PIN: " + foundIdentity.getPin());
                     }
 
                     @Override
@@ -112,6 +109,10 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+                Uri avatarUri = Uri.parse("https://avatars.dicebear.com/v2/" + gender + "/" + Math.random() + ".svg");
+
+                GlideToVectorYou.justLoadImage(MainActivity.this, avatarUri, imageViewPortrait);
+                Log.d("Image","https://avatars.dicebear.com/v2/" + gender + "/" + Math.random() + ".svg");
             }
         });
 

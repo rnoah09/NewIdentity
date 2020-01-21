@@ -8,7 +8,7 @@ public class Identity {
     private String surname;
     private String gender;
     private String region;
-    private int age;
+    private String age;
     private String title;
     private String phone;
     private Array birthday;
@@ -20,7 +20,7 @@ public class Identity {
     private Array credit_card;
     private String expiration;
     private String number;
-    private int pin;
+    private String pin;
     private int security;
     private String photo;
 
@@ -60,11 +60,11 @@ public class Identity {
         this.region = region;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
@@ -156,11 +156,11 @@ public class Identity {
         this.number = number;
     }
 
-    public int getPin() {
+    public String getPin() {
         return pin;
     }
 
-    public void setPin(int pin) {
+    public void setPin(String pin) {
         this.pin = pin;
     }
 
