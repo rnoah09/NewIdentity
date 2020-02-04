@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou;
 import com.squareup.picasso.Picasso;
 
+import java.sql.Array;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -96,12 +98,12 @@ public class MainActivity extends AppCompatActivity {
                         textViewAge.setText("Age: " + foundIdentity.getAge());
                         textViewPhone.setText("Phone: " + foundIdentity.getPhone());
                         textViewRegion.setText("Region: " + foundIdentity.getRegion());
-                        textViewBirthday.setText("DoB: " + foundIdentity.getMdy());
+                        textViewBirthday.setText("DoB: " + foundIdentity.getBirthday().getDmy());
                         textViewEmail.setText("Email: " + foundIdentity.getEmail());
                         textViewPassword.setText("Password: " + foundIdentity.getPassword());
-                        textViewCreditCard.setText("Credit Card: " + foundIdentity.getNumber());
-                        textViewExpiration.setText("Expiration: " + foundIdentity.getExpiration());
-                        textViewPin.setText("PIN: " + foundIdentity.getPin());
+                        textViewCreditCard.setText("Credit Card: " + foundIdentity.getCreditCard().getNumber());
+                        textViewExpiration.setText("Expiration: " + foundIdentity.getCreditCard().getExpiration());
+                        textViewPin.setText("PIN: " + foundIdentity.getCreditCard().getPin());
                     }
 
                     @Override
